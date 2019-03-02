@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView textViewSeekBar;
     private int seekBarPercentage;
     private float enteredBillFloat;
+    private TextView totalBillTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         calculateButton = (Button)findViewById(R.id.calculateButton);
         totalResultTextView = (TextView)findViewById(R.id.resultID);
         textViewSeekBar = (TextView)findViewById(R.id.textViewSeekBar);
+        totalBillTextView = (TextView)findViewById(R.id.totalBillTextView);
 
 
         calculateButton.setOnClickListener(this);
@@ -61,13 +63,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // calculate logic
     public void calculate(){
         float result = 0.0f;
+        float billResult = 0.0f;
 
         // Checks if there is a value in for the bill amount
         if (!enteredAmount.getText().toString().equals("")) {
 
             enteredBillFloat = Float.parseFloat(enteredAmount.getText().toString()); // Converts the text to float and hold the value
             result = enteredBillFloat * seekBarPercentage / 100; // Multiply entered bill amount by pecentage of the seekBar
-            totalResultTextView.setText("Your tip will be $" + String.valueOf(result));
+
+            totalResultTextView.setText("Your tip will be $" + String.valueOf(result)); // Displays tip amount
+            totalBillTextView.setText("Your total bill will be $" + String.valueOf(enteredBillFloat + result)); // Displays total bill amount
 
         } else {
             Toast.makeText(MainActivity.this, "Please enter a bill amount.", Toast.LENGTH_LONG).show();
